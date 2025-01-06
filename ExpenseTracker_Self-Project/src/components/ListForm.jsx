@@ -1,32 +1,85 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { capitalize } from "../utils";
+
+const ListForm = ({expenses, setExpenses}) => {
 
 
-const ListForm = () => {
-  const {register} = useForm()
-  console.log(register())
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset
+  } = useForm();
+  // console.log(formState);
+  // console.log(errors);
+  // console.log(isValid);
+  function onSubmit(data){
+    data.description = capitalize(data.description)
+    data.price = Number(data.price)
+    data.category = capitalize(data.category)
+    const updatedExpenses = [...expenses, {...data}]
+    setExpenses(updatedExpenses)
+    reset()
+  }
   return (
-    <form className="text-xl w-[35%] font-medium">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="text-xl w-[35%] font-medium"
+    >
       <div className="form-group mb-3">
         <label htmlFor="description">Description</label>
-        <input id="description" type="text" className="form-control" />
+        <input
+          {...register("description", { required: true })}
+          id="description"
+          type="text"
+          className="form-control"
+        />
+        {errors.description?.type === "required" && (
+          <p className="text-red-600 mt-[2px]">Description is required</p>
+        )}
       </div>
 
       <div className="form-group mb-3">
         <label htmlFor="price">Price</label>
-        <input id="price" type="number" className="form-control" />
+        <input
+          {...register("price", { min: 1, required: true })}
+          id="price"
+          type="number"
+          className="form-control"
+        />
+        {errors.price?.type === "required" && (
+          <p className="text-red-600 mt-[2px]">Price is required</p>
+        )}
+        {errors.price?.type === "min" && (
+          <p className="text-red-600 mt-[2px]">Price cannot be less than $1</p>
+        )}
       </div>
 
       <div className="form-group mb-3">
         <label htmlFor="category">Category</label>
-        <select className="form-select" name="category" id="category">
-        <option value />
+        <select
+          {...register("category", { required: true })}
+          className="form-select"
+          name="category"
+          id="category"
+        >
+          <option />
           <option value="groceries">Groceries</option>
           <option value="utilities">Utilities</option>
           <option value="entertainment">Entertainment</option>
         </select>
+        {errors.category?.type === "required" && (
+          <p className="text-red-600 mt-[2px]">Category cannot be empty</p>
+        )}
       </div>
-      <button type="submit" className="btn btn-primary text-medium">Submit</button>
+      <button
+        type="submit"
+        // disabled={!isValid}
+        className="btn btn-primary text-medium"
+      >
+        Submit
+      </button>
     </form>
   );
 };

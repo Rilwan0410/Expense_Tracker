@@ -4,14 +4,14 @@ import ListForm from "./components/ListForm";
 import ExpenseTable from "./components/ExpenseTable";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [expenses, setExpenses] = useState([]);
 
   return (
     <>
-      <h1 className='font-semibold text-[3rem] ml-[5px]'>Expense Tracker</h1>
-      <div className=" mt-[30px] p-[20px] flex justify-between">
-        <ListForm />
-        <ExpenseTable />
+      <h1 className="font-semibold text-[3rem] ml-[5px]">Expense Tracker</h1>
+      <div className=" mt-[30px] p-[20px] flex justify-between  overflow-hidden max-h-[90vh]">
+        <ListForm expenses={expenses} setExpenses={setExpenses} />
+        <ExpenseTable expenses={expenses} setExpenses={setExpenses} />
       </div>
     </>
   );
