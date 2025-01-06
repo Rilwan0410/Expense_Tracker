@@ -4,16 +4,9 @@ import ListForm from "./components/ListForm";
 import ExpenseTable from "./components/ExpenseTable";
 
 function App() {
-  const [expenses, setExpenses] = useState([
-    { description: "pizza", price: 5, category: "Groceries" },
-    { description: "candy", price: 5, category: "Groceries" },
-    { description: "netflix", price: 5, category: "Entertainment" },
-    { description: "Hulu", price: 5, category: "Entertainment" },
-    { description: "Car Insurance", price: 5, category: "Utilities" },
-    { description: "lights", price: 5, category: "Utilities" },
-  ]);
+  const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState("");
-  const [prevList, setPrevList] = useState([])
+  const [prevList, setPrevList] = useState([]);
 
   return (
     <>
@@ -24,16 +17,14 @@ function App() {
           setExpenses={setExpenses}
           categories={categories}
           setCategories={setCategories}
-          
         />
         <ExpenseTable
           expenses={expenses}
           setExpenses={setExpenses}
           categories={categories}
           setCategories={setCategories}
-          prevList = {prevList}
+          prevList={prevList}
           setPrevList={setPrevList}
-    
         />
       </div>
     </>
