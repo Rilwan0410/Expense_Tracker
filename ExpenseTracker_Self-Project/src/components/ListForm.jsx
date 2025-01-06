@@ -11,9 +11,7 @@ const ListForm = ({expenses, setExpenses}) => {
     handleSubmit,
     reset
   } = useForm();
-  // console.log(formState);
-  // console.log(errors);
-  // console.log(isValid);
+
   function onSubmit(data){
     data.description = capitalize(data.description)
     data.price = Number(data.price)
@@ -75,7 +73,6 @@ const ListForm = ({expenses, setExpenses}) => {
       </div>
       <button
         type="submit"
-        // disabled={!isValid}
         className="btn btn-primary text-medium"
       >
         Submit
