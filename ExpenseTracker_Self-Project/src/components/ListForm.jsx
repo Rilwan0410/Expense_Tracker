@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { capitalize } from "../utils";
 
-const ListForm = ({expenses, setExpenses}) => {
+const ListForm = ({expenses, setExpenses, prevList, setPrevList}) => {
 
 
   const {
@@ -18,6 +18,7 @@ const ListForm = ({expenses, setExpenses}) => {
     data.category = capitalize(data.category)
     const updatedExpenses = [...expenses, {...data}]
     setExpenses(updatedExpenses)
+    setPrevList(updatedExpenses)
     reset()
   }
   return (

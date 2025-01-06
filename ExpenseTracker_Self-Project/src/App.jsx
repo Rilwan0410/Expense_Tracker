@@ -6,7 +6,7 @@ import ExpenseTable from "./components/ExpenseTable";
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState("");
-  const [prevList, setPrevList] = useState([]);
+  const [prevList, setPrevList] = useState([...expenses]);
 
   return (
     <>
@@ -17,6 +17,8 @@ function App() {
           setExpenses={setExpenses}
           categories={categories}
           setCategories={setCategories}
+          prevList={prevList}
+          setPrevList={setPrevList}
         />
         <ExpenseTable
           expenses={expenses}

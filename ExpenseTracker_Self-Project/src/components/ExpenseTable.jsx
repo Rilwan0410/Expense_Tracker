@@ -10,7 +10,7 @@ const ExpenseTable = ({
 }) => {
   useEffect(() => {
     setPrevList(expenses);
-  }, []);
+  }, [prevList]);
 
   function deleteExpense(e) {
     const htmlElement = e.target.closest("tr").firstChild.innerText;
