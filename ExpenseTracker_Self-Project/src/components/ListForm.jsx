@@ -20,7 +20,7 @@ const ListForm = () => {
       <div className="form-group mb-3">
         <label htmlFor="category">Category</label>
         <select className="form-select" name="category" id="category">
-        <option selected value></option>
+        <option value />
           <option value="groceries">Groceries</option>
           <option value="utilities">Utilities</option>
           <option value="entertainment">Entertainment</option>
