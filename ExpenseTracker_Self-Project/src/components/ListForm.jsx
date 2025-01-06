@@ -1,8 +1,12 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+
 
 const ListForm = () => {
+  const {register} = useForm()
+  console.log(register())
   return (
-    <form className="text-xl font-medium">
+    <form className="text-xl w-[35%] font-medium">
       <div className="form-group mb-3">
         <label htmlFor="description">Description</label>
         <input id="description" type="text" className="form-control" />
