@@ -17,7 +17,7 @@ const ExpenseTable = ({
   function deleteExpense(e) {
     const htmlElement = e.target.closest("tr").firstChild.innerText;
 
-    let filtered = expenses.filter(
+    let filtered = prevList.filter(
       (expense) => expense.description != htmlElement
     );
     let price = filtered.reduce((x, newX) => {
