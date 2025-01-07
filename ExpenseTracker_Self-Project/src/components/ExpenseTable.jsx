@@ -7,6 +7,8 @@ const ExpenseTable = ({
   setCategories,
   prevList,
   setPrevList,
+  totalPrice,
+  setTotalPrice,
 }) => {
   useEffect(() => {
     setPrevList(expenses);
@@ -18,8 +20,12 @@ const ExpenseTable = ({
     let filtered = expenses.filter(
       (expense) => expense.description != htmlElement
     );
+    let price = filtered.reduce((x, newX) => {
+      return x + newX.price;
+    }, 0);
     setExpenses(filtered);
     setPrevList(filtered);
+    setTotalPrice(price);
   }
 
   function filterResults(e) {
@@ -55,26 +61,40 @@ const ExpenseTable = ({
                 <option value="utilities">Utilities</option>
               </select>
             </td>
-            <td></td>
           </tr>
 
-          {expenses.map((expense, index) => (
-            <tr key={index}>
-              <td>{expense.description}</td>
-              <td>
-                {expense.price.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </td>
-              <td>{expense.category}</td>
-              <td>
-                <button className="btn btn-danger" onClick={deleteExpense}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
+          {categories === "all"
+            ? expenses.map((expense, index) => (
+                <tr key={index}>
+                  <td>{expense.description}</td>
+                  <td>
+                    {expense.price.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </td>
+                  <td>{expense.category}</td>
+                  <td>
+                    <button className="btn btn-danger" onClick={deleteExpense}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            : categories === "utilities"
+            ? expenses.filter((exp) => exp.category === capitalize(categories))
+            : ""}
+          <tr>
+            <td className="font-bold text-xl">Total</td>
+            <td className="">
+              {totalPrice.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
         </tbody>
       </table>
     </div>

@@ -2,24 +2,37 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { capitalize } from "../utils";
 
-const ListForm = ({expenses, setExpenses, prevList, setPrevList}) => {
-
-
+const ListForm = ({
+  expenses,
+  setExpenses,
+  prevList,
+  setPrevList,
+  totalPrice,
+  categories,
+  setCategories,
+  setTotalPrice,
+}) => {
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
-    reset
+    reset,
   } = useForm();
 
-  function onSubmit(data){
-    data.description = capitalize(data.description)
-    data.price = Number(data.price)
-    data.category = capitalize(data.category)
-    const updatedExpenses = [...expenses, {...data}]
-    setExpenses(updatedExpenses)
-    setPrevList(updatedExpenses)
-    reset()
+  function onSubmit(data) {
+    data.description = capitalize(data.description);
+    data.price = Number(data.price);
+    data.category = capitalize(data.category);
+    const updatedExpenses = [...expenses, { ...data }];
+    setExpenses(updatedExpenses);
+    setPrevList(updatedExpenses);
+    let price = updatedExpenses.reduce((x, newX) => {
+      return x + newX.price;
+    }, 0);
+
+    setTotalPrice(price);
+
+    reset();
   }
   return (
     <form
@@ -72,10 +85,7 @@ const ListForm = ({expenses, setExpenses, prevList, setPrevList}) => {
           <p className="text-red-600 mt-[2px]">Category cannot be empty</p>
         )}
       </div>
-      <button
-        type="submit"
-        className="btn btn-primary text-medium"
-      >
+      <button type="submit" className="btn btn-primary text-medium">
         Submit
       </button>
     </form>

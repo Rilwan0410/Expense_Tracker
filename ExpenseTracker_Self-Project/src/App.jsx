@@ -5,9 +5,9 @@ import ExpenseTable from "./components/ExpenseTable";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
-  const [categories, setCategories] = useState("");
+  const [categories, setCategories] = useState("all");
   const [prevList, setPrevList] = useState([...expenses]);
-
+  const [totalPrice, setTotalPrice] = useState(0);
   return (
     <>
       <h1 className="font-semibold text-[3rem] ml-[5px]">Expense Tracker</h1>
@@ -19,6 +19,8 @@ function App() {
           setCategories={setCategories}
           prevList={prevList}
           setPrevList={setPrevList}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
         />
         <ExpenseTable
           expenses={expenses}
@@ -27,6 +29,8 @@ function App() {
           setCategories={setCategories}
           prevList={prevList}
           setPrevList={setPrevList}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
         />
       </div>
     </>
